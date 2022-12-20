@@ -7,7 +7,7 @@ const writeFileAsync = util.promisify(fs.writeFile);
 
 class Store {
     read() {
-        return readFileAsync("db/db.json", "utf8")
+        return readFileAsync("db/db.json")
     }
     write(note) {
         return writeFileAsync("db/db.json", JSON.stringify(note))
@@ -15,11 +15,6 @@ class Store {
 
     addNote(note) {
         const { title, text } = note
-
-        if (!title || !text) {
-            throw new Error("title and text cannot be blank")
-        }
-
         const newNote = { title, text, id: uuid() }
 
         return this.getNotes()
